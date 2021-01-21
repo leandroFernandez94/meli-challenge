@@ -1,7 +1,7 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+import express, { Request, Response } from "express";
+import bodyParser from "body-parser";
 
-const apiRouter = require("./router");
+import apiRouter from "./router";
 
 //server
 const app = express();
@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(apiRouter);
 
 //handle errors
-app.use(function errorHandler(err, req, res) {
+app.use(function errorHandler(err: Error, req: Request, res: Response) {
   console.error(err);
   res.status(500).send({ error: err.message || "unknown error" });
 });

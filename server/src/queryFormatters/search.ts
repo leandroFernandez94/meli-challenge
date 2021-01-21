@@ -1,4 +1,10 @@
-function itemFormatter(item) {
+import {
+  SearchApiResponse,
+  SearchApiResponseItem,
+  SearchApiResponseResults,
+} from "../types/api/search";
+
+function itemFormatter(item: SearchApiResponseItem) {
   const [amount, decimals] = item.price.toString().split(".");
 
   return {
@@ -15,11 +21,11 @@ function itemFormatter(item) {
   };
 }
 
-function searchFormatter(apiResults) {
+function searchFormatter(apiResults: SearchApiResponseResults) {
   return {
     // TODO categories
     items: apiResults.map(itemFormatter),
   };
 }
 
-module.exports = searchFormatter;
+export default searchFormatter;
