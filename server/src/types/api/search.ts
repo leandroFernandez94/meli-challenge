@@ -1,3 +1,5 @@
+import { FormattedCategory } from "./category";
+
 export type SearchApiResponseItem = {
   id: string;
   title: string;
@@ -11,13 +13,27 @@ export type SearchApiResponseItem = {
   sold_quantity: number;
 };
 
-export type SearchApiResponseResults = Array<SearchApiResponseItem>;
+export type SearchApiFilterValue = {
+  id: string;
+  name: string;
+  path_from_root: {
+    id: string;
+    name: string;
+  }[];
+};
+
+export type SearchApiFilter = {
+  id: string;
+  values: SearchApiFilterValue[];
+};
 
 export type SearchApiResponse = {
-  results: SearchApiResponseResults;
+  results: SearchApiResponseItem[];
+  filters: SearchApiFilter[];
 };
 
 export type FormattedSearch = {
+  categories: FormattedCategory[];
   items: {
     id: string;
     title: string;

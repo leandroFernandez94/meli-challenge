@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
 
 import apiRouter from "./router";
@@ -14,7 +14,12 @@ app.use(bodyParser.json());
 app.use(apiRouter);
 
 //handle errors
-app.use(function errorHandler(err: Error, req: Request, res: Response) {
+app.use(function errorHandler(
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   console.error(err);
   res.status(500).send({ error: err.message || "unknown error" });
 });

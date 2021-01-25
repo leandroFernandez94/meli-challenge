@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import fetch from "node-fetch";
 import { itemDetailsFormatter } from "../queryFormatters";
+import { CategoryApiResponse } from "../types/api/category";
 import { DescriptionApiResponse, ItemApiResponse } from "../types/api/Item";
 const { MELI_API_ENDPOINT } = process.env;
 
 const itemUrl = `${MELI_API_ENDPOINT}/items`;
+const categoryUrl = `${MELI_API_ENDPOINT}/categories`;
 
 async function getItemDetails(req: Request, res: Response, next: NextFunction) {
   const { id: itemId } = req.params;
@@ -18,12 +20,20 @@ async function getItemDetails(req: Request, res: Response, next: NextFunction) {
       (await fetch(`${itemUrl}/${itemId}/description`)).json(),
     ]);
 
+    console.log("reposnse", itemResponse);
+    const categoryId = itemResponse.category_id;
+    console.log("category", categoryId);
+    const category: CategoryApiResponse = await (
+      await fetch(`${categoryUrl}/${categoryId}`)
+    ).json();
+
     const formattedResult = itemDetailsFormatter.format({
       item: itemResponse,
       description: itemDescriptionResponse,
+      category,
     });
 
-    res.status(200).send(formattedResult);
+    res.send(formattedResult);
   } catch (e) {
     console.error(e);
     next(new Error("failed to fetch item details from meli api"));

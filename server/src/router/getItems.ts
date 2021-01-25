@@ -7,25 +7,26 @@ const { MELI_API_ENDPOINT } = process.env;
 const searchItemsUrl = `${MELI_API_ENDPOINT}/sites/MLA/search`;
 
 async function getItems(req: Request, res: Response, next: NextFunction) {
-  const { query } = req.body;
+  const { q: query } = req.query;
 
   try {
-    const encodedQuery = encodeURIComponent(query);
-    const apiResponse = await fetch(`${searchItemsUrl}?q=${encodedQuery}`);
+    const apiResponse = await fetch(`${searchItemsUrl}?q=${query}`);
     const apiResponseJson: SearchApiResponse = await apiResponse.json();
 
     const results =
       Array.isArray(apiResponseJson.results) &&
       apiResponseJson.results.slice(0, 4);
 
+    const filters = apiResponseJson.filters;
+
     if (!results) {
       next(new Error("API internal error"));
       return;
     }
 
-    const formattedResults = searchMapper.format(results);
+    const formattedResults = searchMapper.format({ results, filters });
 
-    res.status(200).send(formattedResults);
+    res.send(formattedResults);
   } catch (e) {
     console.error(e);
     next(new Error("failed to fetch items from mercadolibre api"));

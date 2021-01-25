@@ -9,7 +9,7 @@ const author: Author = {
 };
 
 export type Formatter<I, O> = (responseFromApi: I) => O;
-export type FormattedResult<O> = { author: Author } & O;
+export type SignedRequest<O> = { author: Author } & O;
 
 export default class FormatterWithAuthor<I, O> {
   private formatter: Formatter<I, O>;
@@ -18,7 +18,7 @@ export default class FormatterWithAuthor<I, O> {
     this.formatter = formatter;
   }
 
-  format(input: I): FormattedResult<O> {
+  format(input: I): SignedRequest<O> {
     return {
       author,
       ...this.formatter(input),

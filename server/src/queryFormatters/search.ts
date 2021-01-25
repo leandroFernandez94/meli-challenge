@@ -1,8 +1,6 @@
-import {
-  SearchApiResponse,
-  SearchApiResponseItem,
-  SearchApiResponseResults,
-} from "../types/api/search";
+import { SearchApiFilter, SearchApiResponseItem } from "../types/api/search";
+
+const CATEGORY_FILTER_ID = "category";
 
 function itemFormatter(item: SearchApiResponseItem) {
   const [amount, decimals] = item.price.toString().split(".");
@@ -21,10 +19,31 @@ function itemFormatter(item: SearchApiResponseItem) {
   };
 }
 
-function searchFormatter(apiResults: SearchApiResponseResults) {
+function getCategoriesPathFromFilters(filters: SearchApiFilter[]) {
+  const categoryFilter = filters.find(
+    (filter) => filter.id === CATEGORY_FILTER_ID
+  );
+  if (
+    !categoryFilter ||
+    !categoryFilter.values[0] ||
+    !categoryFilter.values[0].path_from_root
+  ) {
+    return [];
+  }
+
+  return categoryFilter.values[0].path_from_root;
+}
+
+type SearchFormatterArgs = {
+  results: SearchApiResponseItem[];
+  filters: SearchApiFilter[];
+};
+
+function searchFormatter({ results, filters }: SearchFormatterArgs) {
+  console.log("filters", filters);
   return {
-    // TODO categories
-    items: apiResults.map(itemFormatter),
+    categories: getCategoriesPathFromFilters(filters),
+    items: results.map(itemFormatter),
   };
 }
 

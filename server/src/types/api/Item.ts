@@ -1,6 +1,9 @@
+import { CategoryApiResponse, FormattedCategory } from "./category";
+
 export type ItemApiResponse = {
   id: string;
   title: string;
+  category_id: string;
   currency_id: string;
   price: number;
   pictures: Array<string>;
@@ -18,10 +21,11 @@ export type DescriptionApiResponse = {
 export type ItemWithDescription = {
   item: ItemApiResponse;
   description: DescriptionApiResponse;
+  category: CategoryApiResponse;
 };
 
 export type FormattedItemDetails = {
-  // TODO categories
+  category: FormattedCategory[];
   item: {
     id: string;
     title: string;

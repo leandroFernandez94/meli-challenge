@@ -1,3 +1,4 @@
+import { CategoryApiResponse } from "../types/api/category";
 import {
   DescriptionApiResponse,
   ItemApiResponse,
@@ -15,9 +16,18 @@ function priceFormatter(item: ItemApiResponse) {
   };
 }
 
-function itemDetailsFormatter({ item, description }: ItemWithDescription) {
+function categoryFormatter(category: CategoryApiResponse) {
+  const { id, name } = category;
+  return [{ id, name }, ...category.path_from_root];
+}
+
+function itemDetailsFormatter({
+  item,
+  description,
+  category,
+}: ItemWithDescription) {
   return {
-    // TODO categories
+    category: categoryFormatter(category),
     item: {
       id: item.id,
       title: item.title,

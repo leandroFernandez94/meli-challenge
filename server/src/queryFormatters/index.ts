@@ -1,12 +1,12 @@
 import { FormattedItemDetails, ItemWithDescription } from "../types/api/Item";
-import { FormattedSearch, SearchApiResponseResults } from "../types/api/search";
+import { FormattedSearch, SearchApiResponse } from "../types/api/search";
 
 import FormatterWithAuthor from "./FormatterWithAuthor";
 import itemDetails from "./itemDetails";
 import search from "./search";
 
 export const searchMapper = new FormatterWithAuthor<
-  SearchApiResponseResults,
+  SearchApiResponse,
   FormattedSearch
 >(search);
 
