@@ -1,7 +1,17 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 import { SignedRequest } from "../../types/FormatterWithAuthor";
 import { FormattedSearch } from "../../types/search";
+
+const ListsContainer = styled.div`
+  display: flex;
+  margin-left: 16px;
+  flex-direction: column & > div {
+    margin-bottom: 32px;
+  }
+`;
+
 async function fetchItemDetails(
   id: string
 ): Promise<SignedRequest<FormattedSearch>> {
@@ -26,7 +36,11 @@ function ItemDetails(): ReactElement {
   );
 
   console.log(id);
-  return <span>{item ? JSON.stringify(item, null, "  ") : "Loading"}</span>;
+  return (
+    <ListsContainer>
+      {item ? JSON.stringify(item, null, "  ") : "Loading"}
+    </ListsContainer>
+  );
 }
 
 export default ItemDetails;

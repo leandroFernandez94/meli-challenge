@@ -1,10 +1,27 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import usePrevious from "../../hooks/usePreviousValue";
+import styled from "styled-components";
 
+import usePrevious from "../../hooks/usePreviousValue";
 import { FormattedSearch } from "../../types/search";
 import { SignedRequest } from "../../types/FormatterWithAuthor";
 import Breadcrumbs from "../common/Breadcrumbs";
+import SearchResult from "./SearchResult";
+
+const ListsContainer = styled.div`
+  display: flex;
+  margin-left: 16px;
+  margin-top: 16px;
+  flex-direction: column;
+
+  & > div {
+    margin-bottom: 32px;
+  }
+
+  & > div:last-child {
+    margin-bottom: 16px;
+  }
+`;
 
 async function fetchItems(
   query: string
@@ -39,7 +56,11 @@ function Items(): ReactElement {
   return queryResult ? (
     <div>
       <Breadcrumbs sections={queryResult.categories} />
-      <span>items: {JSON.stringify(queryResult, null, "  ")}</span>
+      <ListsContainer>
+        {queryResult.items.map((item) => (
+          <SearchResult item={item} />
+        ))}
+      </ListsContainer>
     </div>
   ) : (
     <span>Loading</span>
