@@ -20,9 +20,7 @@ async function getItemDetails(req: Request, res: Response, next: NextFunction) {
       (await fetch(`${itemUrl}/${itemId}/description`)).json(),
     ]);
 
-    console.log("reposnse", itemResponse);
     const categoryId = itemResponse.category_id;
-    console.log("category", categoryId);
     const category: CategoryApiResponse = await (
       await fetch(`${categoryUrl}/${categoryId}`)
     ).json();

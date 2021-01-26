@@ -41,7 +41,6 @@ type SearchFormatterArgs = {
 };
 
 function searchFormatter({ results, filters }: SearchFormatterArgs) {
-  console.log("filters", filters);
   return {
     categories: getCategoriesPathFromFilters(filters),
     items: results.map(itemFormatter),
