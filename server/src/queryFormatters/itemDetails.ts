@@ -16,23 +16,18 @@ function priceFormatter(item: ItemApiResponse) {
   };
 }
 
-function categoryFormatter(category: CategoryApiResponse) {
-  const { id, name } = category;
-  return [{ id, name }, ...category.path_from_root];
-}
-
 function itemDetailsFormatter({
   item,
   description,
   category,
 }: ItemWithDescription) {
   return {
-    category: categoryFormatter(category),
+    category: category.path_from_root,
     item: {
       id: item.id,
       title: item.title,
       price: priceFormatter(item),
-      picture: item.pictures[0],
+      picture: item.pictures[0].url,
       condition: item.condition,
       free_shipping: item.shipping && item.shipping.free_shipping,
       sold_quantity: item.sold_quantity,

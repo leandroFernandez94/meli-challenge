@@ -6,7 +6,7 @@ export type ItemApiResponse = {
   category_id: string;
   currency_id: string;
   price: number;
-  pictures: Array<string>;
+  pictures: Array<{ url: string }>;
   condition: string;
   shipping: {
     free_shipping: boolean;
