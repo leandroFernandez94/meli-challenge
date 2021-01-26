@@ -9,9 +9,11 @@ type Props = {
     decimals: number;
   };
   free_shipping: boolean;
+  adress: string;
 };
 
 const ItemColumn = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
 
@@ -23,7 +25,9 @@ const ItemColumn = styled.div`
 const ItemRow = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: ${(props: { align?: string }) => props.align || "center"};
+  justify-content: space-between;
   margin-top: 16px;
 `;
 
@@ -41,6 +45,12 @@ const Title = styled.div`
   font-size: 18px;
 `;
 
+const Adress = styled.div`
+  margin-right: 64px;
+  font-size: 12px;
+  color: #999999;
+`;
+
 const FreeShippingIcon = () => (
   <FreeShippingImg src="/ic_shipping@2x.png" alt="has free shipping" />
 );
@@ -50,9 +60,12 @@ export default function SearchResultDescription(props: Props) {
 
   return (
     <ItemColumn>
-      <ItemRow>
-        <Price>$ {currencyFormatter.format(props.price.amount)}</Price>
-        {props.free_shipping && <FreeShippingIcon />}
+      <ItemRow align="baseline">
+        <ItemRow>
+          <Price>$ {currencyFormatter.format(props.price.amount)}</Price>
+          {props.free_shipping && <FreeShippingIcon />}
+        </ItemRow>
+        <Adress>{props.adress}</Adress>
       </ItemRow>
       <Title>{props.title}</Title>
     </ItemColumn>

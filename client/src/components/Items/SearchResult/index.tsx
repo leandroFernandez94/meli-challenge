@@ -1,3 +1,4 @@
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { SearchItem } from "../../../types/search";
 import SearchResultDescription from "./SearchResultDescription";
@@ -8,9 +9,11 @@ type Props = {
 
 const RowContainer = styled.div`
   display: flex;
+  cursor: pointer;
 
   & > *:last-child {
     margin-left: 16px;
+    padding-right: 16px;
   }
 `;
 
@@ -21,16 +24,23 @@ const RowImg = styled.img`
 `;
 
 export default function SearchResult({
-  item: { title, price, free_shipping, picture },
+  item: { id, title, price, free_shipping, picture, adress },
 }: Props) {
+  const history = useHistory();
+
   const descriptionProps = {
     title,
     price,
     free_shipping,
+    adress,
   };
 
+  function viewProduct() {
+    history.push(`/items/${id}`);
+  }
+
   return (
-    <RowContainer>
+    <RowContainer onClick={viewProduct}>
       <RowImg src={picture} alt={title} />
       <SearchResultDescription {...descriptionProps} />
     </RowContainer>

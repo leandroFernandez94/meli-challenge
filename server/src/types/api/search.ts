@@ -11,6 +11,10 @@ export type SearchApiResponseItem = {
     free_shipping: boolean;
   };
   sold_quantity: number;
+  address: {
+    state_name: string;
+    city_name: string;
+  };
 };
 
 export type SearchApiFilterValue = {
@@ -45,5 +49,6 @@ export type FormattedSearch = {
     picture: string;
     condition: string;
     free_shipping: boolean;
+    adress: string;
   }[];
 };

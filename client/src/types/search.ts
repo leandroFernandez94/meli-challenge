@@ -1,24 +1,5 @@
 import { FormattedCategory } from "./category";
 
-export type SearchApiResponseItem = {
-  id: string;
-  title: string;
-  price: Number;
-  currency_id: string;
-  thumbnail: string;
-  condition: string;
-  shipping: {
-    free_shipping: boolean;
-  };
-  sold_quantity: number;
-};
-
-export type SearchApiResponseResults = Array<SearchApiResponseItem>;
-
-export type SearchApiResponse = {
-  results: SearchApiResponseResults;
-};
-
 export type SearchItem = {
   id: string;
   title: string;
@@ -30,6 +11,7 @@ export type SearchItem = {
   picture: string;
   condition: string;
   free_shipping: boolean;
+  adress: string;
 };
 
 export type FormattedSearch = {

@@ -16,6 +16,7 @@ function itemFormatter(item: SearchApiResponseItem) {
     picture: item.thumbnail,
     condition: item.condition,
     free_shipping: item.shipping && item.shipping.free_shipping,
+    adress: item.address.city_name || item.address.state_name,
   };
 }
 

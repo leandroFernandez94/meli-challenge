@@ -10,6 +10,7 @@ import SearchResult from "./SearchResult";
 
 const ListsContainer = styled.div`
   display: flex;
+  width: 100%;
   margin-left: 16px;
   margin-top: 16px;
   flex-direction: column;
