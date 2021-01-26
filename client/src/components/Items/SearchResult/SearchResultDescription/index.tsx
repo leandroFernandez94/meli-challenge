@@ -1,5 +1,5 @@
-import { useMemo } from "react";
 import styled from "styled-components";
+import currencyFormatter from "../../../../utils/currencyFormatter";
 
 type Props = {
   title: string;
@@ -56,8 +56,6 @@ const FreeShippingIcon = () => (
 );
 
 export default function SearchResultDescription(props: Props) {
-  const currencyFormatter = useMemo(() => new Intl.NumberFormat(), []);
-
   return (
     <ItemColumn>
       <ItemRow align="baseline">

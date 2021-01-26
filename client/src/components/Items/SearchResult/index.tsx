@@ -21,6 +21,7 @@ const RowImg = styled.img`
   width: 180px;
   height: 180px;
   border-radius: 4px;
+  object-fit: contain;
 `;
 
 export default function SearchResult({

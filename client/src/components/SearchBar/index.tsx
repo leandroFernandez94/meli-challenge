@@ -10,10 +10,17 @@ const StyledHeader = styled.header`
   background-color: #ffe600;
   padding: 15px 10%;
 
-  & > img {
-    margin-right: 10px;
+  & > a {
+    margin-right: 20px;
     height: ${HEADER_HEIGHT};
   }
+`;
+
+const NavLogo = styled.a`
+  background-image: url("/Logo_ML@2x.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 50px;
 `;
 
 const StyledForm = styled.form`
@@ -29,7 +36,6 @@ const StyledForm = styled.form`
 
 const StyledInput = styled.input`
   border-radius: 5px;
-  /* width: calc(100% - ${HEADER_HEIGHT}); */
   padding-left: 15px;
   padding-top: 9px;
   padding-bottom: 10px;
@@ -71,7 +77,7 @@ function SearchBar(): ReactElement {
 
   return (
     <StyledHeader>
-      <img src="Logo_ML@2x.png" alt="logo" />
+      <NavLogo href="/" />
       <StyledForm onSubmit={submitSearch} role="search">
         <StyledInput
           ref={inputElement}

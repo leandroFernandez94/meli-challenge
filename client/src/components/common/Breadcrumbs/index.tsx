@@ -13,6 +13,10 @@ const StyledSection = styled.a`
   color: #999999;
   font-size: 14px;
 
+  &:last-child {
+    font-weight: bold;
+  }
+
   &:not(:last-child) {
     margin-right: 24px;
   }

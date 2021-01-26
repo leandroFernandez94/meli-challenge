@@ -8,6 +8,8 @@ import { SignedRequest } from "../../types/FormatterWithAuthor";
 import Breadcrumbs from "../common/Breadcrumbs";
 import SearchResult from "./SearchResult";
 
+import SearchLoaderSkeleton from "../Skeletons/search";
+
 const ListsContainer = styled.div`
   display: flex;
   width: 100%;
@@ -34,6 +36,8 @@ async function fetchItems(
 function Items(): ReactElement {
   const location = useLocation();
   const prevLocation = usePrevious(location);
+
+  const [loading, setLoading] = useState(true);
   const [queryResult, setQueryResult] = useState<
     SignedRequest<FormattedSearch>
   >();
@@ -43,9 +47,12 @@ function Items(): ReactElement {
       async function fetchAndSetItems(query: string) {
         const result = await fetchItems(query);
         setQueryResult(result);
+        setLoading(false);
       }
 
       if (prevLocation?.search === location.search) return;
+      window.scrollTo(0, 0);
+      setLoading(true);
       const searchParams = new URLSearchParams(location.search);
       const searchValue = searchParams.get("search");
       if (!searchValue) return;
@@ -54,7 +61,7 @@ function Items(): ReactElement {
     [location, prevLocation?.search]
   );
 
-  return queryResult ? (
+  return !loading && queryResult ? (
     <div>
       <Breadcrumbs sections={queryResult.categories} />
       <ListsContainer>
@@ -64,7 +71,7 @@ function Items(): ReactElement {
       </ListsContainer>
     </div>
   ) : (
-    <span>Loading</span>
+    <SearchLoaderSkeleton resultsLength={4} />
   );
 }
 
