@@ -1,14 +1,12 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
-import usePrevious from "../../hooks/usePreviousValue";
-import { FormattedSearch } from "../../types/search";
-import { SignedRequest } from "../../types/FormatterWithAuthor";
 import Breadcrumbs from "../common/Breadcrumbs";
 import SearchResult from "./SearchResult";
 
 import SearchLoaderSkeleton from "../Skeletons/search";
+import { useSearch } from "../../utils/swr";
 
 const ListsContainer = styled.div`
   display: flex;
@@ -26,42 +24,17 @@ const ListsContainer = styled.div`
   }
 `;
 
-async function fetchItems(
-  query: string
-): Promise<SignedRequest<FormattedSearch>> {
-  const results = await fetch(`/api/items?q=${query}`);
-  return results.json();
-}
-
 function Items(): ReactElement {
   const location = useLocation();
-  const prevLocation = usePrevious(location);
 
-  const [loading, setLoading] = useState(true);
-  const [queryResult, setQueryResult] = useState<
-    SignedRequest<FormattedSearch>
-  >();
+  const query = useMemo(() => {
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get("search");
+  }, [location]);
 
-  useEffect(
-    function handleLocationChange() {
-      async function fetchAndSetItems(query: string) {
-        const result = await fetchItems(query);
-        setQueryResult(result);
-        setLoading(false);
-      }
+  const { queryResult, isLoading } = useSearch(query);
 
-      if (prevLocation?.search === location.search) return;
-      window.scrollTo(0, 0);
-      setLoading(true);
-      const searchParams = new URLSearchParams(location.search);
-      const searchValue = searchParams.get("search");
-      if (!searchValue) return;
-      fetchAndSetItems(searchValue);
-    },
-    [location, prevLocation?.search]
-  );
-
-  return !loading && queryResult ? (
+  return !isLoading && queryResult ? (
     <div>
       <Breadcrumbs sections={queryResult.categories} />
       <ListsContainer>

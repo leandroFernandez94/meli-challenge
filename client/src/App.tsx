@@ -7,6 +7,7 @@ import Items from "./components/Items";
 import SearchBar from "./components/SearchBar";
 import ItemDetails from "./components/ItemDetails";
 import styled from "styled-components";
+import { SwrWrapper } from "./utils/swr";
 
 const history = createBrowserHistory();
 
@@ -16,18 +17,20 @@ const PageContent = styled.div`
 
 function App() {
   return (
-    <Router history={history}>
-      <div className="App">
-        <SearchBar />
-        <PageContent>
-          <Switch>
-            <Route exact path="/items" component={Items} />
-            <Route path="/items/:id" component={ItemDetails} />
-            <Redirect to="/" />
-          </Switch>
-        </PageContent>
-      </div>
-    </Router>
+    <SwrWrapper>
+      <Router history={history}>
+        <div className="App">
+          <SearchBar />
+          <PageContent>
+            <Switch>
+              <Route exact path="/items" component={Items} />
+              <Route path="/items/:id" component={ItemDetails} />
+              <Redirect to="/" />
+            </Switch>
+          </PageContent>
+        </div>
+      </Router>
+    </SwrWrapper>
   );
 }
 

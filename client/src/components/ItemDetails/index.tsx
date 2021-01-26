@@ -1,13 +1,12 @@
-import { ReactElement, useEffect, useMemo, useState } from "react";
+import { ReactElement, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { SignedRequest } from "../../types/FormatterWithAuthor";
-import { FormattedItemDetails } from "../../types/itemDetails";
 import currencyFormatter from "../../utils/currencyFormatter";
 import Breadcrumbs from "../common/Breadcrumbs";
 import DetailsHead from "./DetailsHead";
 import DetailsBody from "./DetailsBody";
 import DetailsLoaderSkeleton from "../Skeletons/details";
+import { useItemDetails } from "../../utils/swr";
 
 const ListsContainer = styled.div`
   display: flex;
@@ -16,32 +15,9 @@ const ListsContainer = styled.div`
   }
 `;
 
-async function fetchItemDetails(
-  id: string
-): Promise<SignedRequest<FormattedItemDetails>> {
-  const results = await fetch(`/api/items/${id}`);
-  return results.json();
-}
-
 function ItemDetails(): ReactElement {
-  const [details, setDetails] = useState<SignedRequest<FormattedItemDetails>>();
-  const [loading, setLoading] = useState(false);
   const { id } = useParams<{ id: string }>();
-
-  useEffect(
-    function onMount() {
-      async function setItemOnMout() {
-        const result = await fetchItemDetails(id);
-        setDetails(result);
-        setLoading(false);
-      }
-
-      window.scrollTo(0, 0);
-      setLoading(true);
-      setItemOnMout();
-    },
-    [id]
-  );
+  const { queryResult: details, isLoading } = useItemDetails(id);
 
   const headProps = useMemo(() => {
     if (!details) return null;
@@ -56,7 +32,7 @@ function ItemDetails(): ReactElement {
 
   return (
     <ListsContainer>
-      {!loading && details ? (
+      {!isLoading && details ? (
         <div>
           <Breadcrumbs sections={details.category} />
           {headProps && <DetailsHead {...headProps}></DetailsHead>}
