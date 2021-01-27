@@ -20,13 +20,18 @@ async function getItems(req: Request, res: Response, next: NextFunction) {
       apiResponseJson.results.slice(0, 4);
 
     const filters = apiResponseJson.filters;
+    const available_filters = apiResponseJson.available_filters;
 
     if (!results) {
       next(new Error("API internal error"));
       return;
     }
 
-    const formattedResults = searchMapper.format({ results, filters });
+    const formattedResults = searchMapper.format({
+      results,
+      filters,
+      available_filters,
+    });
 
     res.send(formattedResults);
   } catch (e) {

@@ -26,6 +26,17 @@ export type SearchApiFilterValue = {
   }[];
 };
 
+export type SearchApiAvailableFilterValue = {
+  id: string;
+  name: string;
+  results: number;
+};
+
+export type SearchApiAvailableFilter = {
+  id: string;
+  values: SearchApiAvailableFilterValue[];
+};
+
 export type SearchApiFilter = {
   id: string;
   values: SearchApiFilterValue[];
@@ -34,6 +45,7 @@ export type SearchApiFilter = {
 export type SearchApiResponse = {
   results: SearchApiResponseItem[];
   filters: SearchApiFilter[];
+  available_filters: SearchApiAvailableFilter[];
 };
 
 export type SearchItem = {
