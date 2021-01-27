@@ -2,7 +2,6 @@ import React from "react";
 import { Router, Switch, Route, Redirect } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
-import "./App.css";
 import Items from "./components/Items";
 import SearchBar from "./components/SearchBar";
 import ItemDetails from "./components/ItemDetails";

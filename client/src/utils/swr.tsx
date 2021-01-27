@@ -9,6 +9,8 @@ async function fetcher(url: string) {
   return response.json();
 }
 
+// this wrapper brings the cache functionality used by useSwr
+
 export function SwrWrapper({ children }: { children: ReactElement }) {
   return (
     <SWRConfig
@@ -20,6 +22,8 @@ export function SwrWrapper({ children }: { children: ReactElement }) {
     </SWRConfig>
   );
 }
+
+// every fetch hook has a data return type(G)
 
 type RequestSWRHook<G> = {
   queryResult: G;
