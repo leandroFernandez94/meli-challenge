@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import fetch from "node-fetch";
-import { searchMapper } from "../queryFormatters";
+import { searchFormatter } from "../queryFormatters";
 import { SearchApiResponse } from "@shared-types/Search";
 const { MELI_API_ENDPOINT } = process.env;
 
@@ -27,7 +27,8 @@ async function getItems(req: Request, res: Response, next: NextFunction) {
       return;
     }
 
-    const formattedResults = searchMapper.format({
+    //transform api data to format expected by frontend
+    const formattedResults = searchFormatter.format({
       results,
       filters,
       available_filters,

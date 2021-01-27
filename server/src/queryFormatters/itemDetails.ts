@@ -11,6 +11,7 @@ function priceFormatter(item: ItemApiResponse) {
   };
 }
 
+//returns the item details formatted for the frontend
 function itemDetailsFormatter({
   item,
   description,

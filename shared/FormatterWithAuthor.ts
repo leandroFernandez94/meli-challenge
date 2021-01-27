@@ -8,9 +8,14 @@ const author: Author = {
   lastname: "Fernandez",
 };
 
+// every formatter has an input and an output type
 export type Formatter<I, O> = (responseFromApi: I) => O;
+
+//the signed request adds the author to the output type
 export type SignedRequest<O> = { author: Author } & O;
 
+// this class adds the author property to every formatter function
+// by extending any given formatter in the format function
 export class FormatterWithAuthor<I, O> {
   private formatter: Formatter<I, O>;
 

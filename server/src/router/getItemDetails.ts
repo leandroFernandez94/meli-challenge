@@ -21,10 +21,13 @@ async function getItemDetails(req: Request, res: Response, next: NextFunction) {
     ]);
 
     const categoryId = itemResponse.category_id;
+
+    //item category data to build its category path
     const category: CategoryApiResponse = await (
       await fetch(`${categoryUrl}/${categoryId}`)
     ).json();
 
+    //transform api data to format expected by frontend
     const formattedResult = itemDetailsFormatter.format({
       item: itemResponse,
       description: itemDescriptionResponse,

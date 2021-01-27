@@ -7,6 +7,8 @@ import {
 
 const CATEGORY_FILTER_ID = "category";
 
+// returns the item formatted for the frontend
+
 function itemFormatter(item: SearchApiResponseItem) {
   const [amount, decimals] = item.price.toString().split(".");
 
@@ -24,6 +26,8 @@ function itemFormatter(item: SearchApiResponseItem) {
     adress: item.address.city_name || item.address.state_name,
   };
 }
+
+// returns the category with most results for a search
 
 function getCategoryWithMostResults(
   availableFilters: SearchApiAvailableFilter[]
@@ -45,6 +49,8 @@ function getCategoryWithMostResults(
   return categoryWithMostResults;
 }
 
+//returns the categories path to be used in frontend breadcrumbs
+
 function getCategoriesPathFromFilters(
   filters: SearchApiFilter[],
   availableFilters: SearchApiAvailableFilter[]
@@ -54,6 +60,8 @@ function getCategoriesPathFromFilters(
   );
 
   const categoryWithMostResults = getCategoryWithMostResults(availableFilters);
+
+  //if there is no categories path just return the category with most results
   if (
     !categoryFilter ||
     !categoryFilter.values[0] ||
@@ -62,6 +70,7 @@ function getCategoriesPathFromFilters(
     return categoryWithMostResults ? [categoryWithMostResults] : [];
   }
 
+  // add the category with most results to the path for the frontend breadcrumb
   return categoryWithMostResults
     ? [...categoryFilter.values[0].path_from_root, categoryWithMostResults]
     : categoryFilter.values[0].path_from_root;

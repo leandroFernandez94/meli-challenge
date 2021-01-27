@@ -5,7 +5,9 @@ import { FormatterWithAuthor } from "../../../shared/FormatterWithAuthor";
 import itemDetails from "./itemDetails";
 import search from "./search";
 
-export const searchMapper = new FormatterWithAuthor<
+// formatters used by every router need to return the author property
+
+export const searchFormatter = new FormatterWithAuthor<
   SearchApiResponse,
   FormattedSearch
 >(search);
