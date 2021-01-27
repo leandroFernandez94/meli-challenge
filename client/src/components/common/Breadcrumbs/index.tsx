@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FormattedCategory } from "../../../types/category";
 
@@ -7,13 +8,13 @@ const BreadCrumbsContainer = styled.div`
   margin: 16px 0;
 `;
 
-const StyledSection = styled.a`
+const StyledLink = styled(Link)`
   position: relative;
   text-decoration: none;
   color: #999999;
   font-size: 14px;
 
-  &:last-child {
+  &:last-child:not(:first-child) {
     font-weight: bold;
   }
 
@@ -29,10 +30,11 @@ const StyledSection = styled.a`
 `;
 
 function BreadcrumbSection({ name, id }: FormattedCategory) {
+  const encodedName = encodeURIComponent(name);
   return (
-    <StyledSection key={id} href="#">
+    <StyledLink key={id} to={`/items?search=${encodedName}`}>
       {name}
-    </StyledSection>
+    </StyledLink>
   );
 }
 

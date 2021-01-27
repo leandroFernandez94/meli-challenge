@@ -34,12 +34,18 @@ function Items(): ReactElement {
 
   const { queryResult, isLoading } = useSearch(query);
 
+  const categories = useMemo(() => {
+    if (!queryResult || !query) return [];
+    if (!queryResult.categories.length) return [{ id: query, name: query }];
+    return queryResult.categories;
+  }, [queryResult, query]);
+
   return !isLoading && queryResult ? (
     <div>
-      <Breadcrumbs sections={queryResult.categories} />
+      <Breadcrumbs sections={categories} />
       <ListsContainer>
         {queryResult.items.map((item) => (
-          <SearchResult item={item} />
+          <SearchResult item={item} key={item.id} />
         ))}
       </ListsContainer>
     </div>

@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from "react";
+import { ReactElement, useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import currencyFormatter from "../../utils/currencyFormatter";
@@ -18,6 +18,13 @@ const ListsContainer = styled.div`
 function ItemDetails(): ReactElement {
   const { id } = useParams<{ id: string }>();
   const { queryResult: details, isLoading } = useItemDetails(id);
+
+  useEffect(
+    function scrollTopOnIdChange() {
+      window.scrollTo(0, 0);
+    },
+    [id]
+  );
 
   const headProps = useMemo(() => {
     if (!details) return null;

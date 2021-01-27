@@ -10,7 +10,9 @@ async function getItems(req: Request, res: Response, next: NextFunction) {
   const { q: query } = req.query;
 
   try {
-    const apiResponse = await fetch(`${searchItemsUrl}?q=${query}`);
+    if (typeof query !== "string") throw "search parameter is not valid";
+    const encodedQuery = encodeURIComponent(query);
+    const apiResponse = await fetch(`${searchItemsUrl}?q=${encodedQuery}`);
     const apiResponseJson: SearchApiResponse = await apiResponse.json();
 
     const results =
