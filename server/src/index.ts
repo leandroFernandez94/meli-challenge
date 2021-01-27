@@ -5,7 +5,13 @@ import apiRouter from "./router";
 
 //server
 const app = express();
-const port = process.env.SERVER_PORT || 3000;
+const port = process.env.SERVER_PORT || 8000;
+const apiEndopint = process.env.MELI_API_ENDPOINT;
+
+if (!apiEndopint)
+  throw new Error(
+    "mercadolibre api url needs to be specified in env variable MELI_API_ENDPOINT"
+  );
 
 //parse request body as json object
 app.use(bodyParser.json());
@@ -26,5 +32,5 @@ app.use(function errorHandler(
 
 //run server
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`app listening at http://localhost:${port}`);
 });
