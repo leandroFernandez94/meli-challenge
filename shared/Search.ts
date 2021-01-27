@@ -1,4 +1,4 @@
-import { FormattedCategory } from "./category";
+import { FormattedCategory } from "./Category";
 
 export type SearchApiResponseItem = {
   id: string;
@@ -36,19 +36,21 @@ export type SearchApiResponse = {
   filters: SearchApiFilter[];
 };
 
+export type SearchItem = {
+  id: string;
+  title: string;
+  price: {
+    currency: string;
+    amount: number;
+    decimals: number;
+  };
+  picture: string;
+  condition: string;
+  free_shipping: boolean;
+  adress: string;
+};
+
 export type FormattedSearch = {
   categories: FormattedCategory[];
-  items: {
-    id: string;
-    title: string;
-    price: {
-      currency: string;
-      amount: number;
-      decimals: number;
-    };
-    picture: string;
-    condition: string;
-    free_shipping: boolean;
-    adress: string;
-  }[];
+  items: SearchItem[];
 };

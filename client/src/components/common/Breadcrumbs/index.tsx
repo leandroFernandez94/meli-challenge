@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { FormattedCategory } from "../../../types/category";
+import { FormattedCategory } from "@shared-types/Category";
 
 const BreadCrumbsContainer = styled.div`
   display: flex;

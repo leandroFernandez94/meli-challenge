@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { SearchItem } from "../../../types/search";
+import { SearchItem } from "@shared-types/Search";
 import SearchResultDescription from "./SearchResultDescription";
 
 type Props = {

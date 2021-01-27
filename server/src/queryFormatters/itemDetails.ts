@@ -1,9 +1,4 @@
-import { CategoryApiResponse } from "../types/api/category";
-import {
-  DescriptionApiResponse,
-  ItemApiResponse,
-  ItemWithDescription,
-} from "../types/api/Item";
+import { ItemApiResponse, ItemWithDescription } from "@shared-types/Item";
 
 function priceFormatter(item: ItemApiResponse) {
   const { currency_id: currency } = item;

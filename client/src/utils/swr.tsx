@@ -1,8 +1,8 @@
 import { ReactElement } from "react";
 import useSWR, { SWRConfig } from "swr";
-import { SignedRequest } from "../types/FormatterWithAuthor";
-import { FormattedItemDetails } from "../types/itemDetails";
-import { FormattedSearch } from "../types/search";
+import { SignedRequest } from "@shared-types/FormatterWithAuthor";
+import { FormattedItemDetails } from "@shared-types/Item";
+import { FormattedSearch } from "@shared-types/Search";
 
 async function fetcher(url: string) {
   const response = await fetch(url);

@@ -1,4 +1,4 @@
-import { CategoryApiResponse, FormattedCategory } from "./category";
+import { CategoryApiResponse, FormattedCategory } from "./Category";
 
 export type ItemApiResponse = {
   id: string;

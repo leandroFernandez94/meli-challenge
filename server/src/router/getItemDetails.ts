@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import fetch from "node-fetch";
 import { itemDetailsFormatter } from "../queryFormatters";
-import { CategoryApiResponse } from "../types/api/category";
-import { DescriptionApiResponse, ItemApiResponse } from "../types/api/Item";
+import { CategoryApiResponse } from "@shared-types/Category";
+import { DescriptionApiResponse, ItemApiResponse } from "@shared-types/Item";
 const { MELI_API_ENDPOINT } = process.env;
 
 const itemUrl = `${MELI_API_ENDPOINT}/items`;

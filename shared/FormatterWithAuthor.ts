@@ -11,7 +11,7 @@ const author: Author = {
 export type Formatter<I, O> = (responseFromApi: I) => O;
 export type SignedRequest<O> = { author: Author } & O;
 
-export default class FormatterWithAuthor<I, O> {
+export class FormatterWithAuthor<I, O> {
   private formatter: Formatter<I, O>;
 
   constructor(formatter: Formatter<I, O>) {

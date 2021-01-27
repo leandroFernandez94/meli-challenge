@@ -1,4 +1,4 @@
-import { SearchApiFilter, SearchApiResponseItem } from "../types/api/search";
+import { SearchApiFilter, SearchApiResponseItem } from "@shared-types/Search";
 
 const CATEGORY_FILTER_ID = "category";
 

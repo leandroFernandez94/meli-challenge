@@ -1,7 +1,7 @@
-import { FormattedItemDetails, ItemWithDescription } from "../types/api/Item";
-import { FormattedSearch, SearchApiResponse } from "../types/api/search";
+import { FormattedItemDetails, ItemWithDescription } from "@shared-types/Item";
+import { FormattedSearch, SearchApiResponse } from "@shared-types/Search";
+import { FormatterWithAuthor } from "../../../shared/FormatterWithAuthor";
 
-import FormatterWithAuthor from "./FormatterWithAuthor";
 import itemDetails from "./itemDetails";
 import search from "./search";
 
